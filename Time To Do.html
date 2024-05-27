@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Time To Do</title>
+    <!--网页标题左侧显示-->
+    <link href="img/urltimechina.ico" rel="shortcut icon" type="image/x-icon">
+    <!--收藏夹显示图标-->
+    <link rel="shortcut icon" href="todo.ico" type="image/x-icon">
+    <style>
+        #title {
+            font-family: "noto serif sc", Cardo, STSong, "Songti SC", SimSun, "PingFang SC", "Microsoft YaHei", 微软雅黑, STXihei, 华文细黑, serif
+        }
+
+        #todoList {
+            list-style: none;
+            padding: 0;
+            width: 600px;
+            margin-bottom: 5px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            background: #91dac1;
+            position: relative;
+            opacity:0.9;
+            margin: auto;
+            border-radius:10px;
+        }
+
+        #todoList li {
+            margin-bottom: 5px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background: #f5f5f5;
+            position: relative;
+            margin: auto;
+            }
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius:10px;
+        }
+
+        button {
+            padding: 10px 30px;
+            border: 1px solid #ccc;
+            background: #f5f5f5;
+            outline: none;
+            cursor: pointer;
+        }
+
+        #todoList span {
+            position: absolute;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        #btn {
+            background-color: #008CBA;
+            color: white;
+            padding: 15px 30px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 15px;
+            border-radius: 12px;
+        }
+
+        #bottom {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #f5f5f5;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
+            opacity:0.5;
+        }
+
+        #background {
+            background-image: url(img/background.png);
+            background-size: 100% 100%;
+            background-attachment: fixed;
+        }
+
+        #go {
+            background-color: #808080;
+            color: white;
+            padding: 8px 100px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 15px;
+            border-radius: 30px;
+        }
+
+    </style>
+</head>
+<body>
+    <div style="text-align:center">
+        <img href="img/todo.png"/>
+        <h2 id="title">Time To Do For Web</h2>
+    </div>
+   <div style="text-align:center">
+    <input type="text" id="content" placeholder="添加任务">
+    <button id="btn">Add</button>
+   <div>
+       <br />
+       <br />
+   </div>
+   <ul id="todoList">
+        <li>去做OS <span>×</span></li>
+        <li>去睡觉 <span>×</span></li>
+    </ul>
+
+
+    <script>    
+        var input = document.querySelector('#content');
+        var btn = document.querySelector('#btn');
+        var todoList= document.querySelector('#todoList');
+        var spans = document.querySelectorAll('#todoList span');
+
+
+        btn.onclick = function(){
+            //获取 input的内置
+            var text = input.value;
+
+            //创建li元素 并给li元素添加包裹 内容
+            var li = document.createElement('li');
+            li.innerText = text;
+            var span = document.createElement('span');
+            span.innerHTML = '×';
+            li.appendChild(span);
+
+            //把li元素添加到ul中
+            todoList.appendChild(li);
+        }    
+
+
+        /*spans.forEach(function(span){
+            span.onclick = function(){
+                todoList.removeChild(this.parentNode)
+            }
+        })*/
+
+        //委派方式绑定
+        todoList.onclick = function(event) {
+            if (event.target.nodeName === 'SPAN') {
+                this.removeChild(event.target.parentNode);
+            }
+        }
+    </script>
+   </div>
+    <div id="bottom">
+        <h5>本网站已开源于Github，版本1.1.0</h5>
+        <p>本网站全部使用CSS及HTML实现，无需Cookie跟踪,没有跟踪是我们坚持的追求——URL Time Inc. China</p>
+        <button id="go" type="submit" onclick="window.open('https://urltimechina.mysxl.cn')"> Go To Our Website </button>
+    </div>
+</body>
+</html>
